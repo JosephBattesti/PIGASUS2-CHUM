@@ -46,9 +46,12 @@ while True:
         if keyboard.is_pressed('c'):
                 esp.calibrate()
 
-        if keyboard.is_pressed('d'):
+        if keyboard.is_pressed('b'):
             while True:
-                np.savetxt('saved_data.csv',esp.get_values() , delimiter=',')
+                newdata=esp.get_values()
+                np.savetxt('saved_data.csv',newdata, delimiter=',')
+                print('savingdata')
+                print(newdata)
                 try:
                     if keyboard.is_pressed('q'):
                         break
