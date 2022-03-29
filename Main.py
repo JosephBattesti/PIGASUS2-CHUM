@@ -10,10 +10,10 @@ import time
 import mqttClass as MQ
 import controlleur as ctrl
 import numpy as np
-
+import connect
 
 # Define MQTT client
-broker_address="127.0.0.1"
+broker_address="192.168.0.100"
 subscription="domoticz/in"
 port=1883
 byteCoding="utf-8"
@@ -51,20 +51,19 @@ while True:
             data = np.array([])
             while True:
                 read=esp.get_values()
-                newdata = str(newdata[0]) + ', ' + str(newdata[1]) + ', ' + str(newdata[2]) + ', '
-                data = np.append(data, newdata)
+                newdata = str(read[0]) + ', ' + str(read[1]) + ', ' + str(read[2]) + ', '
+                with open('data.txt', 'a') as the_file:
+                    the_file.write(newdata + '\n')
                 print('saved data: ' + str(newdata))
                 try:
                     if keyboard.is_pressed('q'):
-                        np.savetxt('saved_data.csv', newdata, delimiter=',')
                         break
                 except:
                         break
 
         if keyboard.is_pressed('e'):
-            token = "ekU2uRUeLYJUNuJm9oHxFWD4NMNmKBkcTd5DLiOf6YiG-OS_l06i503apoGfuNCPo_oWmIHVJx32jbIaWJiuLQ=="
-            org = "emilegag05@gmail.com"
-            bucket = "Python_test"
+            connect.send_data()
+            print("data sent")
 
 
     except:

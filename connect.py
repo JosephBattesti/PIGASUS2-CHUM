@@ -10,40 +10,38 @@ presentDate = datetime.datetime.now()
 unix_timestamp = int(datetime.datetime.timestamp(presentDate)*1000000000)
 t0=unix_timestamp # ns
 
-step=100000000 #100ms en ns
+step=1000000000 #1000ms en ns
 time1 = time.time()
 
-data = np.genfromtxt('acceleration_mouvement.csv',delimiter=',', skip_header=1)
+def send_data():
+   data = np.genfromtxt('data.txt',delimiter=',', skip_header=1)
 
-acc_x = data[:, 0]
-acc_y = data[:, 1]
-acc_z = data[:, 2]
-mag_x = data[:, 3]
-mag_y = data[:, 4]
-mag_z = data[:, 5]
-gyro_x = data[:, 6]
-gyro_y = data[:, 7]
-gyro_z = data[:, 8]
+   acc_x = data[:, 0]
+   acc_y = data[:, 1]
+   acc_z = data[:, 2]
 
-# You can generate an API token from the "API Tokens Tab" in the UI
-token = "ekU2uRUeLYJUNuJm9oHxFWD4NMNmKBkcTd5DLiOf6YiG-OS_l06i503apoGfuNCPo_oWmIHVJx32jbIaWJiuLQ=="
-org = "emilegag05@gmail.com"
-bucket = "Python_test"
 
-with InfluxDBClient(url="https://us-central1-1.gcp.cloud2.influxdata.com", token=token, org=org) as client:
-   write_api = client.write_api(write_options=SYNCHRONOUS)
+   # You can generate an API token from the "API Tokens Tab" in the UI
+   token = "ekU2uRUeLYJUNuJm9oHxFWD4NMNmKBkcTd5DLiOf6YiG-OS_l06i503apoGfuNCPo_oWmIHVJx32jbIaWJiuLQ=="
+   org = "emilegag05@gmail.com"
+   bucket = "Python_test"
 
-tag = "acc_x,device=LSM9DS1 ACC_X="
+   with InfluxDBClient(url="https://us-central1-1.gcp.cloud2.influxdata.com", token=token, org=org) as client:
+      write_api = client.write_api(write_options=SYNCHRONOUS)
 
-send_data = np.array([])
-i = 0
-while i < len(acc_x):
-   timestamp = t0 + step*i
-   send_data = np.append(send_data, tag + str(acc_x[i]) + " " + str(timestamp))
-   i+=1
+   tag = "acc_x,device=LSM9DS1 ACC_X="
 
-print(send_data)
-write_api.write(bucket, org, send_data)
-print(time.time()-time1)
+   send_data = np.array([])
+   i = 0
+   while i < len(acc_x):
+      timestamp = t0 + step*i
+      send_data = np.append(send_data, tag + str(acc_x[i]) + " " + str(timestamp))
+      i+=1
 
-client.close()
+   print(send_data)
+   write_api.write(bucket, org, send_data)
+   print(time.time()-time1)
+
+   client.close()
+
+   open('file.txt', 'w').close()
