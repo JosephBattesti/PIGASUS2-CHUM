@@ -9,6 +9,7 @@ import keyboard
 import time
 import mqttClass as MQ
 import controlleur as ctrl
+import numpy as np
 
 
 # Define MQTT client
@@ -25,6 +26,8 @@ esp=ctrl.Controlleur(client)
 
 print("q : Quit")
 print("v : Print values")
+print("b : Begin data recording")
+print("e : Send saved data to database")
 print("c : Calibrate")
 print("l : Load SD")
 print("s : extract features")
@@ -41,7 +44,23 @@ while True:
                 except:
                         break
         if keyboard.is_pressed('c'):
-                esp.calibrate()     
+                esp.calibrate()
+
+        if keyboard.is_pressed('d'):
+            while True:
+                np.savetxt('saved_data.csv',esp.get_values() , delimiter=',')
+                try:
+                    if keyboard.is_pressed('q'):
+                        break
+                except:
+                        break
+
+        if keyboard.is_pressed('e'):
+            token = "ekU2uRUeLYJUNuJm9oHxFWD4NMNmKBkcTd5DLiOf6YiG-OS_l06i503apoGfuNCPo_oWmIHVJx32jbIaWJiuLQ=="
+            org = "emilegag05@gmail.com"
+            bucket = "Python_test"
+
+
     except:
             break
     
