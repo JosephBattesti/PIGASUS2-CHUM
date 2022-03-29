@@ -50,7 +50,8 @@ while True:
             print('savingdata, press q to stop')
             data = np.array([])
             while True:
-                newdata=esp.get_values()
+                read=esp.get_values()
+                newdata = str(newdata[0]) + ', ' + str(newdata[1]) + ', ' + str(newdata[2]) + ', '
                 data = np.append(data, newdata)
                 print('saved data: ' + str(newdata))
                 try:
