@@ -3,8 +3,8 @@ Python tools for acquisition (MQTT from espeasy), processing and transmission to
 
 The code is structured as follows :
 
-coefficients.csv stores calibration parameters associated to the microcontroller’s ID 
-influx_login.cv stores the organisation, bucket, token, url for the connection to influx
+* coefficients.csv stores calibration parameters associated to the microcontroller’s ID 
+* influx_login.cv stores the organisation, bucket, token, url for the connection to influx
 Main.py is in charge of  :
   -All the displays in the application’s terminal (List of options and sensor values)
   -Input from the user ( Choosing options or entering logins)
