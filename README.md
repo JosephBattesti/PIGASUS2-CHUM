@@ -5,11 +5,11 @@ The code is structured as follows :
 
 * coefficients.csv stores calibration parameters associated to the microcontroller’s ID 
 * influx_login.cv stores the organisation, bucket, token, url for the connection to influx
-Main.py is in charge of  :
-  -All the displays in the application’s terminal (List of options and sensor values)
-  -Input from the user ( Choosing options or entering logins)
-  -Checking Connection to MQTT (1883 port default)
-  -Checking Logins for InfluxDB in csv file.
+* Main.py is in charge of  :
+  - All the displays in the application’s terminal (List of options and sensor values)
+  - Input from the user ( Choosing options or entering logins)
+  - Checking Connection to MQTT (1883 port default)
+  - Checking Logins for InfluxDB in csv file.
 
 Connectroller.py is the class representing the microcontroller.
   -An object Controller has an ID, calibration parameters and a MQTT Client from which to listen to messages from the physical microcontroller. The class has some important methods : 
