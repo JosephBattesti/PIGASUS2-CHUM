@@ -11,7 +11,7 @@ The code is structured as follows :
   - Checking Connection to MQTT (1883 port default)
   - Checking Logins for InfluxDB in csv file.
 
-*Connectroller.py is the class representing the microcontroller.
+* Connectroller.py is the class representing the microcontroller.
   - An object Controller has an ID, calibration parameters and a MQTT Client from which to listen to messages from the physical microcontroller. The class has some important methods : 
   - loadCalibration() :  Checks for the presence of the ID in coefficients.csv in order to upload values. If not found, the user is advised to perform a calibration.
   - calibrate() : Execute the protocol for accelerometer calibration, measuring 1g and 0g  in each  axis (x,y,z) and stores values in coefficients.csv
